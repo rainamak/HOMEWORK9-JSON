@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Homework 9: JSON</title>
+<style>
+	
+	body {background-color: #247; color: white; font-size: 25px; text-align: center;}
+    
+    ul{
+        list-style-position:inside;
+        font-style: italic;
+
+        
+    }
+     .button {
+          background-color: #89cff0;
+          color: white;
+          padding: 5px 20px;
+          text-align: center;
+          text-decoration:none;
+          display: inline-block;
+          font-size: 20px;
+    }
+
+	
+</style>
+</head>
+
+    
+<body>
+	<script language="javascript">
+	
+    /*PART 1: CREATE A JSON*/     
+  
+    setlist = [ 
+        {"artist":"The 1975","title":"So Far (It's Alright)","genre":["Indie Rock"],"year":"2013"}, 
+        {"artist":"Noah Cyrus","title":"Lonely","genre":["Pop"],"year":"2019"}, 
+        {"artist":"Skrillex","title":"Chicken Soup","genre":["Dance","Electronic"],"year":"2017"},{"artist":"Fletcher","title":"Undrunk","genre":["Pop"],"year":"2019"},
+        {"artist":"LANY","title":"4EVER!","genre":["Indie Pop"],"year":"2015"},
+        {"artist":"Denyah","title":"Easy Baby","genre":["RnB","Soul"],"year":"2018"},
+        {"artist":"Anne-Marie","title":"2002","genre":["Pop"],"year":"2018"},
+        {"artist":"No Rome","title":"Narcissist","genre":["Chillwave"],"year":"2018"},
+        {"artist":"Elvis Presley","title":"Trying to Get to     You","genre":["Rock and Roll"],"year":"1956"},
+        {"artist":"Berhana","title":"Wildin'","genre":["RnB", "Soul"],"year":"2019"}    
+    ]
+    
+    /*PART 2: SERIALIZE AND DISPLAY*/ 
+    document.write("Serialized JSON Data:"+"</br>" + "</br>");
+    for (var i = 0; i < setlist.length; i++){
+        s = JSON.stringify(setlist[i]); 
+        document.write(s+"<br/>")
+    }
+    
+    
+    /*PART 3: SERIALIZE AND DISPLAY IN USER FRIENDLY FORMAT*/
+    document.write("<br/>" + "TODAY'S SETLIST" + "<br/>" + "<br/>");
+    for (var i = 0; i<setlist.length; i++){
+        document.write(setlist[i].title.bold() + "</br>"); 
+        document.write("Artist: " + setlist[i].artist + "</br>"); 
+        document.write("Genre: " + setlist[i].genre + "</br>"); 
+        document.write("Released " + setlist[i].year + "</br>" + "<br/>"); 
+        
+    }
+    
+    /*PART 4: FILTER THE DATA*/ 
+    
+    </script> 
+    
+    <div class = "form"> 
+        <form id="myform">
+        <label for="genre">Filter Songs by Genre: </label> 
+            <select id = "genre"> 
+                <option value = "Indie Rock">Indie Rock</option>
+                <option value = "Pop">Pop</option>
+                <option value = "Dance">Dance</option>
+                <option value = "Electronic">Electronic</option>
+                <option value = "RnB">RnB</option>
+                <option value = "Chillwave">Chillwave</option>
+                <option value = "Rock and Roll">Rock and Roll</option>
+                <option value = "Soul">Soul</option>
+            </select>
+            </br> 
+            <input class = "button" type="submit" value="FILTER"> 
+        </form> 
+    </div>
+    
+    <p id = "header"></p>
+    <ul id = "filteredList">
+    </ul>
+    
+   
+    <script language="javascript"> 
+    
+    function clearList(){
+        var x = document.querySelector("ul");
+        var child = x.lastElementChild; 
+        while(child){
+            x.removeChild(child); 
+            child = x.lastElementChild; 
+        }
+    }
+    
+    document.querySelector("form").addEventListener("submit", function(myFunction){   
+        myFunction.preventDefault();
+        clearList(); 
+        document.getElementById("header").innerHTML = "Filtered by Genre:";
+        var selected = this.querySelector("select").value; 
+        for (var j=0; j<setlist.length; j++){
+            for(i in setlist[j].genre){
+                var genre = setlist[j].genre[i]; 
+                var filteredSongs; 
+                if(genre==selected){
+                    var title = setlist[j].title;
+                    var node = document.createElement("LI"); 
+                    var textnode = document.createTextNode(title); 
+                    node.appendChild(textnode); document.getElementById("filteredList").appendChild(node); 
+                }
+            } 
+        }
+    
+    })
+    </script>
+    
+
+
+</body>
+</html>
